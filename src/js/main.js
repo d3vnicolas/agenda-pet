@@ -1,7 +1,7 @@
-import '../styles/globals.css';
+import "../styles/globals.css"
 
-const hello = () => 'world!';
+const hello = () => "world!"
 
-document.addEventListener('DOMContentLoaded', () => {
-  document.body.querySelector('h1').innerHTML += ` ${hello()}`;
-});
+document.addEventListener("DOMContentLoaded", () => {
+  document.body.querySelector("h1").innerHTML += ` ${hello()}`
+})

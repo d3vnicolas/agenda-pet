@@ -1,0 +1,38 @@
+$color-content-primary: #ffffff;
+$color-content-secondary: #98959d;
+$color-content-tertiary: #666666;
+$color-content-brand: #9282fa;
+
+$color-bg-primary: #3e3c41;
+$color-bg-secondary: #1e1e1e;
+$color-bg-tertiary: #23242c;
+$color-bg-brand: $color-content-brand;
+$color-bg-highlights: #bdb4fa;
+
+$color-border-primary: #3e3c41;
+$color-border-secondary: #86818c;
+$color-border-brand: $color-content-brand;
+$color-border-divisor: #353339;
+
+$color-accent-blue: #027df0;
+$color-accent-blue-light: #16487a;
+$color-accent-yellow: #f0dc02;
+$color-accent-yellow-light: #756e1b;
+$color-accent-orange: #f09102;
+$color-accent-orange-light: #75501b;
+
+@font-face {
+  font-family: "Inter";
+  src: url("../../src/assets/fonts/Inter-VariableFont_opsz\,wght.ttf") format("truetype");
+  font-weight: 100 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter Tight";
+  src: url("../../src/assets/fonts/InterTight-VariableFont_wght.ttf") format("truetype");
+  font-weight: 100 800;
+  font-style: normal;
+  font-display: swap;
+}
