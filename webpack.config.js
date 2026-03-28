@@ -1,5 +1,6 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const path = require("path")
+const HtmlWebpackPlugin = require("html-webpack-plugin")
+const CopyWebpackPlugin = require("copy-webpack-plugin")
 
 module.exports = {
   entry: path.resolve(__dirname, "src", "js", "main.js"),
@@ -19,7 +20,19 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, "src", "index.html")
+      template: path.resolve(__dirname, "src", "index.html"),
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, "src", "assets", "fonts"),
+          to: path.resolve(__dirname, "dist", "src", "assets", "fonts"),
+        },
+        {
+          from: path.resolve(__dirname, "src", "assets", "images", "icons"),
+          to: path.resolve(__dirname, "dist", "src", "assets", "images", "icons")
+        }
+      ],
     }),
   ],
   module: {
@@ -36,13 +49,16 @@ module.exports = {
           loader: "babel-loader",
           options: {
             presets: [
-              ["@babel/preset-env", {
-                targets: "defaults",
-              }],
+              [
+                "@babel/preset-env",
+                {
+                  targets: "defaults",
+                },
+              ],
             ],
           },
         },
       },
     ],
   },
-};
+}
