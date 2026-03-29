@@ -1,0 +1,67 @@
+{
+  "$schema": "../node_modules/json-server/db-schema.json",
+  "schedules": [
+    {
+      "id": 1,
+      "tutor": "Fernanda Costa",
+      "date": "2026-03-28",
+      "hour": "09:00",
+      "petName": "Thor",
+      "service": "Vacinação",
+      "phone": "11994738299"
+    },
+    {
+      "id": 2,
+      "tutor": "João Souza",
+      "date": "2026-03-28",
+      "hour": "13:00",
+      "petName": "Mel",
+      "service": "Corte de unhas",
+      "phone": "11994738212"
+    },
+    {
+      "id": 3,
+      "tutor": "Maria Oliveira",
+      "date": "2026-03-28",
+      "hour": "14:00",
+      "petName": "Luna",
+      "service": "Banho e Tosa",
+      "phone": "11994738234"
+    },
+    {
+      "id": 4,
+      "tutor": "Carlos Pereira",
+      "date": "2026-03-28",
+      "hour": "15:00",
+      "petName": "Rex",
+      "service": "Consulta Veterinária",
+      "phone": "11994738256"
+    },
+    {
+      "id": 5,
+      "tutor": "Ana Silva",
+      "date": "2026-03-28",
+      "hour": "20:00",
+      "petName": "Bella",
+      "service": "Vacinação",
+      "phone": "11994738278"
+    }
+  ],
+  "workHours": {
+    "hours": [
+      "09:00",
+      "10:00",
+      "11:00",
+      "12:00",
+      "13:00",
+      "14:00",
+      "15:00",
+      "16:00",
+      "17:00",
+      "18:00",
+      "19:00",
+      "20:00",
+      "21:00"
+    ]
+  }
+}
