@@ -68,40 +68,6 @@ body {
   aspect-ratio: 1;
   width: 2rem;
 }
-.header__date-picker {
-  cursor: pointer;
-  position: relative;
-}
-.header__date-picker input {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  cursor: pointer;
-  z-index: 2;
-}
-.header__date-display {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 16px;
-  border-radius: 12px;
-  background-color: transparent;
-  border: 1px solid #3e3c41;
-  color: #cfcfd6;
-  font-size: 14px;
-  position: relative;
-  z-index: 1;
-  width: -moz-fit-content;
-  width: fit-content;
-}
-.header__date-display .icon-calendar {
-  aspect-ratio: 1;
-  width: 20px;
-}
-.header__date-display .arrow {
-  aspect-ratio: 1;
-  width: 14px;
-}
 .header .container {
   align-items: center;
   display: flex;
@@ -219,4 +185,171 @@ body {
 }
 .footer__schedule:hover {
   box-shadow: 0 0 40px 0 rgba(146, 130, 250, 0.6);
+}
+
+.date-picker,
+.datetime-picker {
+  cursor: pointer;
+  position: relative;
+}
+.date-picker input,
+.datetime-picker input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.date-display,
+.time-display {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background-color: transparent;
+  border: 1px solid #3e3c41;
+  color: #cfcfd6;
+  font-size: 14px;
+  position: relative;
+  z-index: 1;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.date-display .icon-calendar,
+.date-display .icon-clock,
+.time-display .icon-calendar,
+.time-display .icon-clock {
+  aspect-ratio: 1;
+  position: static;
+  width: 20px;
+}
+
+.date-display .arrow,
+.time-display .arrow {
+  aspect-ratio: 1;
+  position: static;
+  width: 14px;
+}
+
+.modal {
+  background-color: #23242c;
+  border-radius: 12px;
+  max-width: 477px;
+  padding: 40px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(100% - 32px);
+  z-index: 2;
+}
+.modal__subtitle {
+  color: #ffffff;
+  font-size: 2.4rem;
+  font-weight: bold;
+  line-height: 3.2rem;
+}
+.modal__description {
+  color: #98959d;
+  font-size: 1.4rem;
+  line-height: 2.4rem;
+  margin-bottom: 28px;
+}
+.modal__form {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.modal__form label {
+  color: #ffffff;
+  font-size: 1.4rem;
+  line-height: 2.4rem;
+  margin-bottom: 4px;
+}
+.modal__form input,
+.modal__form textarea {
+  background-color: transparent;
+  border: 1px solid #3e3c41;
+  border-radius: 8px;
+  color: #ffffff;
+  height: 48px;
+  outline: none;
+  padding: 0 16px 0 38px;
+}
+.modal__form input::-moz-placeholder, .modal__form textarea::-moz-placeholder {
+  color: #98959d;
+}
+.modal__form input::placeholder,
+.modal__form textarea::placeholder {
+  color: #98959d;
+}
+.modal__form textarea {
+  font-size: 1.6rem;
+  height: 84px;
+  padding: 12px 8px;
+  resize: none;
+  width: 100%;
+}
+.modal__form img {
+  aspect-ratio: 1/1;
+  bottom: 14px;
+  left: 8px;
+  position: absolute;
+  width: 20px;
+}
+.modal__form .date-display,
+.modal__form .time-display {
+  width: 100%;
+}
+.modal__form .date-display,
+.modal__form .time-display {
+  justify-content: space-between;
+}
+.modal__form .date-display span,
+.modal__form .time-display span {
+  flex: 1;
+}
+.modal__form button {
+  background-color: #9282fa;
+  border: none;
+  border-radius: 8px;
+  color: #050505;
+  cursor: pointer;
+  font-size: 1.6rem;
+  font-weight: bold;
+  height: 48px;
+  margin: 26px 0 0 auto;
+  padding: 0 22px;
+  text-transform: uppercase;
+  transition: box-shadow 0.2s ease-in-out;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.modal__form button:hover {
+  box-shadow: rgba(146, 130, 250, 0.6) 0px 0px 40px 0px;
+}
+.modal .w-full,
+.modal .w-half {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.modal .w-full {
+  width: 100%;
+}
+.modal .w-half {
+  width: calc(50% - 8px);
+}
+
+.app-overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  z-index: 1;
 }/*# sourceMappingURL=globals.css.map */
