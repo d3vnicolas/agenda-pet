@@ -23,6 +23,200 @@ body {
   height: 100%;
 }
 
+html {
+  font-size: 62.5%;
+}
+
 body {
-  background-color: #1d1d1d;
+  background-color: #14151D;
+  color: #ffffff;
+  font-family: "Inter Tight", sans-serif;
+  font-size: 1.4rem;
+  padding: 0 16px;
+}
+
+.hr {
+  border: none;
+  border-top: 1px solid #353339;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 711px;
+  width: 100%;
+}
+
+.header {
+  margin-bottom: 32px;
+}
+.header__title {
+  align-items: center;
+  background-color: #2e2c30;
+  border-radius: 0 0 12px 0;
+  color: #9282fa;
+  display: flex;
+  font-size: 1.6rem;
+  font-weight: bold;
+  gap: 4px;
+  margin: 0 0 16px -16px;
+  padding: 18px 20px;
+  text-transform: uppercase;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.header__title img {
+  aspect-ratio: 1;
+  width: 2rem;
+}
+.header__date-picker {
+  cursor: pointer;
+  position: relative;
+}
+.header__date-picker input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 2;
+}
+.header__date-display {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background-color: transparent;
+  border: 1px solid #3e3c41;
+  color: #cfcfd6;
+  font-size: 14px;
+  position: relative;
+  z-index: 1;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.header__date-display .icon-calendar {
+  aspect-ratio: 1;
+  width: 20px;
+}
+.header__date-display .arrow {
+  aspect-ratio: 1;
+  width: 14px;
+}
+.header .container {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+.header__subtitle {
+  color: #ffffff;
+  font-size: 2.4rem;
+  font-weight: bold;
+  line-height: 3.2rem;
+}
+.header__description {
+  color: #98959d;
+  font-size: 1.4rem;
+  line-height: 2.4rem;
+}
+
+.main .period {
+  background-color: #23242c;
+  border-radius: 10px;
+  padding: 12px 20px;
+}
+.main .period__wrapper-title {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 12px;
+}
+.main .period__wrapper-title strong {
+  color: #98959d;
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+.main .period__title {
+  align-items: center;
+  color: #ffffff;
+  display: flex;
+  font-size: 1.6rem;
+  font-weight: bold;
+  gap: 8px;
+  line-height: 2.4rem;
+}
+.main .period + .period {
+  margin-top: 12px;
+}
+.main .period__schedules {
+  list-style: none;
+  padding: 20px 10px;
+}
+.main .period__schedule {
+  align-items: center;
+  display: flex;
+  height: 48px;
+}
+.main .period__schedule + .period__schedule {
+  border-top: 1px solid #353339;
+  margin-top: 12px;
+}
+.main .period__hour {
+  margin-right: 24px;
+}
+.main .period__hour, .main .period__patient strong {
+  color: #ffffff;
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1.6rem;
+}
+.main .period__patient {
+  color: #98959d;
+  font-size: 1.2rem;
+  line-height: 1.6rem;
+}
+.main .period__service {
+  color: #98959d;
+  font-size: 1.2rem;
+  flex: 1;
+  line-height: 1.6rem;
+  text-align: center;
+  padding: 0 16px;
+}
+.main .period__remove {
+  color: #666666;
+  font-size: 1.2rem;
+  line-height: 1.6rem;
+  text-decoration: none;
+}
+.main .period__remove:hover {
+  text-decoration: underline;
+}
+
+.footer {
+  bottom: 32px;
+  position: absolute;
+  right: 32px;
+}
+.footer__schedule {
+  align-items: center;
+  background-color: #9282fa;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 0 40px 0 rgba(146, 130, 250, 0.3);
+  color: #050505;
+  cursor: pointer;
+  display: flex;
+  height: 48px;
+  padding: 0 22px;
+  transition: box-shadow 0.2s ease-in-out;
+}
+.footer__schedule span {
+  font-size: 1.6rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  line-height: 1;
+}
+.footer__schedule:hover {
+  box-shadow: 0 0 40px 0 rgba(146, 130, 250, 0.6);
 }/*# sourceMappingURL=globals.css.map */

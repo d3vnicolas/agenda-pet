@@ -6,6 +6,91 @@
   <title>Agendamento Petshop</title>
 </head>
 <body>
-  <h1>hello</h1>
+  <header class="header">
+    <h1 class="header__title header__title--fixed"><img src="./assets/images/icons/icon-dog.svg" alt="Ícone de cachorro"> <span>Mundo PET</span></h1>
+    <div class="container">
+      <div class="header__hero">
+        <h2 class="header__subtitle">Sua agenda</h2>
+        <p class="header__description">Aqui você pode ver todos os clientes e serviços agendados para hoje.</p>
+      </div>
+      <div class="header__date-picker">
+        <input type="date" id="date" />
+
+        <div class="header__date-display">
+          <img class="icon-calendar" src="./assets/images/icons/icon-calendar.svg" alt="Ícone de calendário">
+          <span id="date-text">Selecionar data</span>
+          <img class="arrow" src="./assets/images/icons/icon-arrow-down.svg" alt="Ícone de seta para baixo">
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="container">
+      <section class="period period--morning">
+        <div class="period__wrapper-title">
+          <h3 class="period__title"><img src="./assets/images/icons/icon-sun.svg" alt="Ícone de sol"> <span>Manhã</span></h3>
+          <strong>09h-12h</strong>
+        </div>
+        <hr class="hr">
+        <ul class="period__schedules">
+          <li class="period__schedule">
+            <span class="period__hour">09:00</span>
+            <span class="period__patient"><strong>Thor</strong> / Fernanda Costa</span>
+            <span class="period__service">Vacinação</span>
+            <a class="period__remove" href="javascript:void(0);"> Remover agendamento</a>
+          </li>
+        </ul>
+      </section>
+
+      <section class="period period--afternoon">
+        <div class="period__wrapper-title">
+          <h3 class="period__title"><img src="./assets/images/icons/icon-cloud.svg" alt="Ícone de nuvem"> <span>Tarde</span></h3>
+          <strong>13h-18h</strong>
+        </div>
+        <hr class="hr">
+        <ul class="period__schedules">
+          <li class="period__schedule">
+            <span class="period__hour">13:00</span>
+            <span class="period__patient"><strong>Thor</strong> / Fernanda Costa</span>
+            <span class="period__service">Vacinação</span>
+            <a class="period__remove" href="javascript:void(0);"> Remover agendamento</a>
+          </li>
+          <li class="period__schedule">
+            <span class="period__hour">13:00</span>
+            <span class="period__patient"><strong>Thor</strong> / Fernanda Costa</span>
+            <span class="period__service">Vacinação</span>
+            <a class="period__remove" href="javascript:void(0);"> Remover agendamento</a>
+          </li>
+          <li class="period__schedule">
+            <span class="period__hour">13:00</span>
+            <span class="period__patient"><strong>Thor</strong> / Fernanda Costa</span>
+            <span class="period__service">Vacinação</span>
+            <a class="period__remove" href="javascript:void(0);"> Remover agendamento</a>
+          </li>
+        </ul>
+      </section>
+
+      <section class="period period--night">
+        <div class="period__wrapper-title">
+          <h3 class="period__title"><img src="./assets/images/icons/icon-moon.svg" alt="Ícone de lua"> <span>Noite</span></h3>
+          <strong>18h-21h</strong>
+        </div>
+        <hr class="hr">
+        <ul class="period__schedules">
+          <li class="period__schedule">
+            <span class="period__hour">18:00</span>
+            <span class="period__patient"><strong>Thor</strong> / Fernanda Costa</span>
+            <span class="period__service">Vacinação</span>
+            <a class="period__remove" href="javascript:void(0);"> Remover agendamento</a>
+          </li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <button class="footer__schedule"><span>Novo Agendamento</span></button>
+  </footer>
 </body>
 </html>
