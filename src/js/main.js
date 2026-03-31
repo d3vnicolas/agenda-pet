@@ -1,3 +1,3 @@
-import "../styles/globals.css"
+import "../styles/globals.scss"
 import "../js/modules/schedule/load.js"
-import "./modules/datepicker/handleLoad.js"
+import "../js/modules/dom/handleDom.js"

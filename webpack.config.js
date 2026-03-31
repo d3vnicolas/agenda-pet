@@ -1,6 +1,9 @@
+require("dotenv").config()
+
 const path = require("path")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const CopyWebpackPlugin = require("copy-webpack-plugin")
+const DotEnvPlugin = require("dotenv-webpack")
 
 module.exports = {
   entry: path.resolve(__dirname, "src", "js", "main.js"),
@@ -8,7 +11,7 @@ module.exports = {
     filename: "bundle.js",
     path: path.resolve(__dirname, "dist"),
   },
-  mode: "development",
+  mode: process.env.WEBPACK_MODE || "production",
   devServer: {
     static: {
       directory: path.join(__dirname, "dist"),
@@ -25,22 +28,32 @@ module.exports = {
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: path.resolve(__dirname, "src", "assets", "fonts"),
-          to: path.resolve(__dirname, "dist", "assets", "fonts"),
-        },
-        {
           from: path.resolve(__dirname, "src", "assets", "images", "icons"),
-          to: path.resolve(__dirname, "dist", "assets", "images", "icons")
-        }
+          to: path.resolve(__dirname, "dist", "assets", "images", "icons"),
+        },
       ],
     }),
+    new DotEnvPlugin(),
   ],
   module: {
     rules: [
       {
-        test: /\.css$/i,
-        use: ["style-loader", "css-loader"],
-        exclude: /node_modules/,
+        test: /\.s[ac]ss$/i,
+        use: [
+          // Creates `style` nodes from JS strings
+          "style-loader",
+          // Translates CSS into CommonJS
+          "css-loader",
+          // Compiles Sass to CSS
+          "sass-loader",
+        ],
+      },
+      {
+        test: /\.(ttf|woff|woff2|eot)$/i,
+        type: "asset/resource",
+        generator: {
+          filename: "assets/fonts/[name][ext]",
+        },
       },
       {
         test: /\.js$/,
