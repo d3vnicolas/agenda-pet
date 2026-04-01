@@ -369,6 +369,19 @@ body {
         box-shadow: rgba(146, 130, 250, 0.6) 0px 0px 40px 0px;
       }
     }
+
+    > .error input {
+      border-color: config.$color-accent-red;
+    }
+  }
+
+  &__input-error {
+    position: absolute;
+    bottom: -16px;
+    font-size: 1rem;
+    color: #ff4f4f;
+    letter-spacing: 2px;
+    left: 8px;
   }
 
   .w-full,
