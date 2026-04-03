@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from "uuid"
+
 async function getSchedules(date) {
   try {
     const response = await fetch(`${process.env.API_URL}/schedules?date=${date}`)
@@ -13,7 +15,16 @@ async function getSchedules(date) {
   }
 }
 
-async function createSchedule({ id, tutor, petName, service, date, hour }) {
+async function createSchedule({
+  tutor,
+  petName,
+  phone,
+  service,
+  modalDate: date,
+  modalTime: hour,
+}) {
+  const id = uuidv4()
+
   try {
     const request = await fetch(`${process.env.API_URL}/schedules`, {
       method: "POST",
@@ -24,18 +35,19 @@ async function createSchedule({ id, tutor, petName, service, date, hour }) {
         id,
         tutor,
         petName,
+        phone,
         service,
         date,
         hour,
       }),
     })
 
-    const response = await request.json()
-    if (!response.ok) {
-      console.error("Erro ao fazer requisição PUT.")
+    if (!request.ok) {
+      console.error("Erro ao fazer requisição POST.")
       return
     }
 
+    const response = await request.json()
     return response
   } catch (error) {
     console.error("Erro na requisição createSchedule: " + error)

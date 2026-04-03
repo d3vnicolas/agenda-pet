@@ -1,6 +1,7 @@
 import { initInputDate, initInputTime } from "./initUi"
 import { inputsValidation } from "../form/validation"
 import { clearScheduleForm } from "../dom/renders"
+import api from "../api/handleSchedules"
 
 const wrappersDate = document.querySelectorAll(".date-picker")
 const wrapperTime = document.querySelector(".datetime-picker")
@@ -32,7 +33,15 @@ modalCloseButton.addEventListener("click", () => {
 
 form.addEventListener("submit", (event) => {
   event.preventDefault()
-  inputsValidation()
+  if (!inputsValidation()) {
+    return
+  }
+
+  const form = document.querySelector(".modal__form")
+  const formData = new FormData(form)
+  const data = Object.fromEntries(formData.entries())
+
+  api.createSchedule(data)
 })
 
 document.addEventListener("DOMContentLoaded", () => {

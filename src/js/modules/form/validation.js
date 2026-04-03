@@ -4,10 +4,21 @@ export function inputsValidation() {
   const inputs = document.querySelectorAll(".modal__form input")
   const textArea = document.querySelector(".modal__form textarea")
   const fields = [...inputs, textArea]
+  let result = true
 
-  fields.forEach((field) => {
-    whichInput(field.getAttribute("name"), field)
-  })
+  for (const field of fields) {
+    if (field.getAttribute("name") === "modalDate" || field.getAttribute("name") === "modalTime") {
+      continue
+    }
+
+    if (result) {
+      result = whichInput(field.getAttribute("name"), field)
+    } else {
+      whichInput(field.getAttribute("name"), field)
+    }
+  }
+
+  return result
 }
 
 function whichInput(attr, field) {
@@ -29,6 +40,8 @@ function nameValidation(field) {
   !result
     ? renderFormInputError(field.parentNode, "Nome e/ou sobrenome inválido")
     : removeFormInputError(field.parentNode)
+
+  return result
 }
 
 function petNameValidation(field) {
@@ -39,6 +52,8 @@ function petNameValidation(field) {
   !result
     ? renderFormInputError(field.parentNode, "Nome do PET inválido")
     : removeFormInputError(field.parentNode)
+
+  return result
 }
 
 function phoneValidation(field) {
