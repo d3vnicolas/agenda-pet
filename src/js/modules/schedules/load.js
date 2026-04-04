@@ -1,4 +1,4 @@
-import api from "../api/handleSchedules"
+import services from "../services/handleSchedules"
 import { clearSchedules, renderScheduleItems } from "../dom/renders"
 import dayjs from "dayjs"
 
@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 })
 
 export async function renderSchedules(date) {
-  const schedulesByDate = await api.getSchedules(date)
+  const schedulesByDate = await services.getSchedules(date)
 
   if (!schedulesByDate) return
 
