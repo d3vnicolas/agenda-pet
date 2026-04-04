@@ -34,6 +34,26 @@ body {
   width: 100%;
 }
 
+.tp-ui-wrapper.purple-dark-theme {
+  --tp-bg: #{config.$color-bg-tertiary};
+  --tp-surface: #{config.$color-content-primary};
+  --tp-surface-hover: #{config.$color-bg-secondary};
+  --tp-text: #{config.$color-content-primary};
+  --tp-text-secondary: #{config.$color-content-primary};
+  --tp-primary: #{config.$color-content-brand};
+  --tp-on-primary: #ffffff;
+  --tp-border: #{config.$color-content-brand};
+  --tp-am-pm-active: #{config.$color-content-brand};
+  --tp-wheel-selected-color: #{config.$color-content-brand};
+  --tp-shadow: none;
+  --tp-border-radius: 12px;
+  --tp-wheel-disabled-opacity: 0.1;
+}
+
+.tp-ui-wrapper.tp-ui-normalize.purple-dark-theme {
+  border: 1px solid config.$color-content-brand;
+}
+
 .header {
   margin-bottom: 32px;
 
@@ -198,8 +218,7 @@ body {
   }
 }
 
-.date-picker,
-.datetime-picker {
+.date-picker {
   cursor: pointer;
   position: relative;
 
@@ -212,20 +231,63 @@ body {
   }
 }
 
-.date-display,
+.time-picker {
+  cursor: pointer;
+  position: relative;
+
+  input {
+    cursor: pointer;
+    z-index: 1;
+    width: 100%;
+  }
+}
+
 .time-display {
+  color: #cfcfd6;
+  font-size: 14px;
+  height: 48px;
+
+  position: relative;
+  z-index: 1;
+
+  width: fit-content;
+
+  input {
+    color: #cfcfd6 !important;
+    font-size: 14px;
+    padding-left: 46px !important;
+  }
+
+  .icon-clock {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .arrow {
+    position: absolute !important;
+    right: 16px;
+    top: 50%;
+    left: unset;
+    transform: translateY(-50%);
+  }
+}
+
+.date-display {
   display: flex;
   align-items: center;
   gap: 10px;
 
   padding: 12px 16px;
-  border-radius: 12px;
+  border-radius: 8px;
 
   background-color: transparent;
   border: 1px solid config.$color-border-primary;
 
   color: #cfcfd6;
   font-size: 14px;
+  height: 48px;
 
   position: relative;
   z-index: 1;
@@ -370,14 +432,15 @@ body {
       }
     }
 
-    > .error input {
+    > .error input,
+    > .error textarea {
       border-color: config.$color-accent-red;
     }
   }
 
   &__input-error {
     position: absolute;
-    bottom: -16px;
+    bottom: -13px;
     font-size: 1rem;
     color: #ff4f4f;
     letter-spacing: 2px;
@@ -398,6 +461,10 @@ body {
   .w-half {
     width: calc(50% - 8px);
   }
+
+  &.blur {
+    filter: blur(6px);
+  }
 }
 
 .app-overlay {
@@ -411,5 +478,7 @@ body {
 
   &.visible {
     visibility: visible !important;
+    background: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(6px);
   }
 }

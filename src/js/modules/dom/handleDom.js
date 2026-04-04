@@ -1,7 +1,9 @@
 import { initInputDate, initInputTime } from "./initUi"
 import { inputsValidation } from "../form/validation"
 import { clearScheduleForm } from "../dom/renders"
-import api from "../api/handleSchedules"
+import services from "../services/handleSchedules"
+import { renderSchedules } from "../schedules/load"
+import dayjs from "dayjs"
 
 const wrappersDate = document.querySelectorAll(".date-picker")
 const wrapperTime = document.querySelector(".datetime-picker")
@@ -31,7 +33,7 @@ modalCloseButton.addEventListener("click", () => {
   clearScheduleForm(fields)
 })
 
-form.addEventListener("submit", (event) => {
+form.addEventListener("submit", async (event) => {
   event.preventDefault()
   if (!inputsValidation()) {
     return
@@ -41,7 +43,14 @@ form.addEventListener("submit", (event) => {
   const formData = new FormData(form)
   const data = Object.fromEntries(formData.entries())
 
-  api.createSchedule(data)
+  const result = await services.createSchedule(data)
+  if (result) {
+    modalCloseButton.click()
+    alert("Agendamento criado com sucesso!")
+    renderSchedules(dayjs().format("YYYY-MM-DD"))
+  } else {
+    alert("Ocorreu um erro ao criar o agendamento. Tente novamente.")
+  }
 })
 
 document.addEventListener("DOMContentLoaded", () => {
