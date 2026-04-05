@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from "uuid"
 
-async function getSchedules(date) {
+async function getSchedulesByDate(date) {
   try {
     const response = await fetch(`${process.env.API_URL}/schedules?date=${date}`)
     if (!response.ok) {
@@ -8,10 +8,16 @@ async function getSchedules(date) {
     }
 
     const data = await response.json()
-    return data
+    return {
+      success: true,
+      data,
+    }
   } catch (error) {
     console.error("Erro na requisição getSchedules: " + error)
-    return {}
+    return {
+      success: false,
+      message: "Erro ao buscar agendamentos.",
+    }
   }
 }
 
@@ -44,13 +50,22 @@ async function createSchedule({
 
     if (!request.ok) {
       console.error("Erro ao fazer requisição POST.")
-      return request.ok
+      return {
+        success: false,
+        message: "Erro ao criar o agendamento. Tente novamente.",
+      }
     }
 
-    return request.ok
+    return {
+      success: true,
+      data: "Agendamento criado com sucesso.",
+    }
   } catch (error) {
     console.error("Erro na requisição createSchedule: " + error)
-    return false
+    return {
+      success: false,
+      message: "Erro ao criar o agendamento. Tente novamente.",
+    }
   }
 }
 
@@ -59,50 +74,55 @@ async function getWorkSchedules() {
     const response = await fetch(`${process.env.API_URL}/workSchedules`)
     const data = await response.json()
 
-    return data
-  } catch (error) {
-    console.error("Erro na requisição de horários de trabalho: " + error)
-    return {}
-  }
-}
-
-async function getUnavailableHours(date) {
-  try {
-    const unavailableSchedules = await getSchedules(date)
-    const schedules = unavailableSchedules.map((schedule) => {
-      return parseInt(schedule.hour.replace(":00", ""))
-    })
-
-    return schedules
-  } catch (error) {
-    console.error("Erro ao buscar horários disponíveis")
-    return []
-  }
-}
-
-async function getFirstScheduleAvailable(date) {
-  try {
-    const [unavailableHours, worksHours] = await Promise.all([
-      getSchedules(date),
-      getWorkSchedules(),
-    ])
-
-    const unavailableSchedules = unavailableHours.map((schedule) =>
-      parseInt(schedule.hour.replace(":00", "")),
-    )
-    const availableSchedules = new Set(
-      worksHours.hours.map((hour) => parseInt(hour.replace(":00", ""))),
-    )
-
-    for (const hour of unavailableSchedules) {
-      availableSchedules.delete(hour)
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`)
     }
 
-    return availableSchedules.values().next().value
+    return {
+      success: true,
+      data,
+    }
   } catch (error) {
-    console.error("Erro ao buscar o primeiro horário disponível: " + error)
-    return false
+    console.error("Erro na requisição de horários de trabalho: " + error)
+    return {
+      success: false,
+      message: "Erro na requisição de horários de trabalho.",
+    }
   }
 }
 
-export default { getSchedules, createSchedule, getUnavailableHours, getFirstScheduleAvailable }
+async function deleteSchedule(id) {
+  try {
+    const response = await fetch(`${process.env.API_URL}/schedules/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-type": "application/json",
+      },
+    })
+
+    if (!response.ok) {
+      return {
+        success: false,
+        message: "Erro ao deletar o agendamento.",
+      }
+    }
+
+    return {
+      success: true,
+      message: "Agendamento removido com sucesso.",
+    }
+  } catch (error) {
+    console.log("Erro na requisição de delete: " + error)
+    return {
+      success: false,
+      message: "Erro na requisição de delete",
+    }
+  }
+}
+
+export default {
+  getSchedulesByDate,
+  createSchedule,
+  getWorkSchedules,
+  deleteSchedule,
+}

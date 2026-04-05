@@ -21,6 +21,10 @@ body {
   font-family: "Inter Tight", sans-serif;
   font-size: 1.4rem;
   padding: 0 16px;
+
+  &.no-scroll {
+    overflow: hidden;
+  }
 }
 
 .hr {
@@ -176,6 +180,7 @@ body {
 
     &__remove {
       color: config.$color-content-tertiary;
+      cursor: pointer;
       font-size: 1.2rem;
       line-height: 1.6rem;
       text-decoration: none;
@@ -188,9 +193,9 @@ body {
 }
 
 .footer {
-  bottom: 32px;
-  position: absolute;
-  right: 32px;
+  display: flex;
+  justify-content: flex-end;
+  padding: 32px;
 
   &__schedule {
     align-items: center;
@@ -412,29 +417,38 @@ body {
       }
     }
 
-    button {
-      background-color: config.$color-content-brand;
-      border: none;
-      border-radius: 8px;
-      color: config.$color-content-primary-inverse;
-      cursor: pointer;
-      font-size: 1.6rem;
-      font-weight: bold;
-      height: 48px;
-      margin: 26px 0 0 auto;
-      padding: 0 22px;
-      text-transform: uppercase;
-      transition: box-shadow 0.2s ease-in-out;
-      width: fit-content;
-
-      &:hover {
-        box-shadow: rgba(146, 130, 250, 0.6) 0px 0px 40px 0px;
-      }
-    }
-
     > .error input,
     > .error textarea {
       border-color: config.$color-accent-red;
+    }
+  }
+
+  &__button {
+    background-color: config.$color-content-brand;
+    border: none;
+    border-radius: 8px;
+    color: config.$color-content-primary-inverse;
+    cursor: pointer;
+    font-size: 1.6rem;
+    font-weight: bold;
+    height: 48px;
+    margin: 26px 0 0 auto;
+    padding: 0 22px;
+    text-transform: uppercase;
+    transition: box-shadow 0.2s ease-in-out;
+    width: fit-content;
+
+    &:hover {
+      box-shadow: rgba(146, 130, 250, 0.6) 0px 0px 40px 0px;
+    }
+
+    &[disabled] {
+      cursor: not-allowed;
+      opacity: 0.5;
+
+      &:hover {
+        box-shadow: none;
+      }
     }
   }
 

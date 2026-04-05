@@ -2,13 +2,14 @@ import dayjs from "dayjs"
 import { TimepickerUI, PluginRegistry } from "timepicker-ui"
 import { WheelPlugin } from "timepicker-ui/plugins/wheel"
 import services from "../services/handleSchedules"
+import utils from "../utils/scheduleRules"
+import { removeFormInputError } from "./renders"
+import { renderSchedules } from "../schedules/load"
 
 import "timepicker-ui/main.css"
 import "timepicker-ui/theme-dark.css"
 
-export var timerpicker
-
-const today = dayjs().format("YYYY-MM-DD")
+export let timerpicker
 
 export function initInputDate(wrapperDates) {
   const today = dayjs().format("YYYY-MM-DD")
@@ -16,6 +17,9 @@ export function initInputDate(wrapperDates) {
   wrapperDates.forEach((dateWrapped) => {
     const inputDate = dateWrapped.querySelector("input[type=date]")
     const labelDate = dateWrapped.querySelector("span")
+
+    if (!inputDate || !labelDate) return
+
     const [year, month, day] = today.split("-")
 
     inputDate.value = today
@@ -24,8 +28,16 @@ export function initInputDate(wrapperDates) {
 
     inputDate.addEventListener("change", function () {
       const dateValue = inputDate.value
-      const [year, month, day] = dateValue.split("-")
-      labelDate.innerText = `${day}/${month}/${year}`
+      const [selectedYear, selectedMonth, selectedDay] = dateValue.split("-")
+      labelDate.innerText = `${selectedDay}/${selectedMonth}/${selectedYear}`
+
+      document.querySelector(".modal__button")?.removeAttribute("disabled")
+
+      const parentDatePicker = document.querySelector(".modal .date-picker")
+      const parentTimePicker = document.querySelector(".modal .time-picker")
+
+      if (parentDatePicker) removeFormInputError(parentDatePicker)
+      if (parentTimePicker) removeFormInputError(parentTimePicker)
     })
 
     dateWrapped.addEventListener("click", function () {
@@ -35,11 +47,21 @@ export function initInputDate(wrapperDates) {
 }
 
 export async function initInputTime() {
+  const today = dayjs().format("YYYY-MM-DD")
   PluginRegistry.register(WheelPlugin)
 
-  const data = await services.getUnavailableHours(today)
-  const unavailableHours = [...data]
+  const [unavailableHours, firstAvailableHour] = await Promise.all([
+    utils.unavailableHours(today),
+    utils.firstScheduleAvailable(today),
+  ])
+
   const input = document.querySelector("#modal-time")
+
+  if (!input) return
+
+  const disabledHours = unavailableHours.success ? unavailableHours.data : []
+  const initialHour = firstAvailableHour.success ? firstAvailableHour.data : 9
+
   timerpicker = new TimepickerUI(input, {
     clock: {
       type: "24h",
@@ -47,12 +69,10 @@ export async function initInputTime() {
       incrementMinutes: 60,
       currentTime: {
         updateInput: true,
-        time: dayjs()
-          .hour(await services.getFirstScheduleAvailable(today))
-          .minute(0),
+        time: dayjs().hour(initialHour).minute(0),
       },
       disabledTime: {
-        hours: [0, 1, 2, 3, 4, 5, 6, 7, 8, ...unavailableHours, 22, 23],
+        hours: [0, 1, 2, 3, 4, 5, 6, 7, 8, ...disabledHours, 22, 23],
       },
     },
     ui: {
@@ -62,6 +82,7 @@ export async function initInputTime() {
       animation: false,
       mobile: false,
       cssClass: "purple-dark-theme",
+      editable: false,
     },
     labels: {
       ok: "Confirmar",
@@ -69,22 +90,41 @@ export async function initInputTime() {
       time: "Escolher horário",
     },
     callbacks: {
-      onConfirm: function (e) {
-        handleCloseTimepicker(e)
+      onConfirm: function () {
+        handleCloseTimepicker()
       },
-      onCancel: function (e) {
-        handleCloseTimepicker(e)
+      onCancel: function () {
+        handleCloseTimepicker()
       },
       onOpen: () => {
         const nodeForm = document.querySelector("section.modal")
-        nodeForm.classList.add("blur")
+        nodeForm?.classList.add("blur")
       },
     },
   })
+
   timerpicker.create()
+}
+
+export async function initDeleteAnchor({ target }) {
+  const id = target.parentElement.querySelector("input[type=hidden]").value
+  const request = await services.deleteSchedule(id)
+
+  alert(request.message)
+
+  if (request.success) {
+    renderSchedules(dayjs().format("YYYY-MM-DD"))
+  }
 }
 
 function handleCloseTimepicker() {
   const nodeForm = document.querySelector("section.modal")
-  setTimeout(() => nodeForm.classList.remove("blur"), 300)
+  const parentDatePicker = document.querySelector(".modal .date-picker")
+  const parentTimePicker = document.querySelector(".modal .time-picker")
+
+  if (parentDatePicker) removeFormInputError(parentDatePicker)
+  if (parentTimePicker) removeFormInputError(parentTimePicker)
+
+  document.querySelector(".modal__button")?.removeAttribute("disabled")
+  setTimeout(() => nodeForm?.classList.remove("blur"), 300)
 }

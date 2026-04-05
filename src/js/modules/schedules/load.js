@@ -15,10 +15,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 })
 
 export async function renderSchedules(date) {
-  const schedulesByDate = await services.getSchedules(date)
+  const schedulesByDate = await services.getSchedulesByDate(date)
 
-  if (!schedulesByDate) return
+  if (!schedulesByDate.success) return
 
   clearSchedules()
-  renderScheduleItems(schedulesByDate)
+  renderScheduleItems(schedulesByDate.data)
 }

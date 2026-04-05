@@ -1,35 +1,35 @@
 import { removeFormInputError, renderFormInputError } from "../dom/renders"
+import utils from "../utils/scheduleRules"
+import services from "../services/handleSchedules"
 
-export function inputsValidation() {
+export async function inputsValidation() {
   const inputs = document.querySelectorAll(".modal__form input")
   const textArea = document.querySelector(".modal__form textarea")
   const fields = [...inputs, textArea]
   let result = true
 
   for (const field of fields) {
-    if (field.getAttribute("name") === "modalDate" || field.getAttribute("name") === "modalTime") {
-      continue
-    }
-
     if (result) {
-      result = whichInput(field.getAttribute("name"), field)
+      result = await whichInput(field.getAttribute("name"), field)
     } else {
-      whichInput(field.getAttribute("name"), field)
+      await whichInput(field.getAttribute("name"), field)
     }
   }
 
   return result
 }
 
-function whichInput(attr, field) {
+async function whichInput(attr, field) {
   const result = {
     tutor: nameValidation,
     petName: petNameValidation,
     phone: phoneValidation,
     service: descriptionValidation,
+    modalDate: validateScheduleDate,
+    modalTime: validateScheduleDate,
   }
   const fn = result[attr]
-  return fn ? fn(field) : null
+  return fn ? await fn(field) : null
 }
 
 function nameValidation(field) {
@@ -78,4 +78,37 @@ function descriptionValidation(field) {
     : removeFormInputError(field.parentNode)
 
   return result
+}
+
+async function validateScheduleDate(field) {
+  const inputDay = document.getElementById("modal-date").value
+  const inputHour = document.getElementById("modal-time").value
+
+  if (!inputDay || !inputHour) {
+    renderFormInputError(field.parentNode, "Selecione data e horário")
+    return false
+  }
+
+  const [schedules, workHours] = await Promise.all([
+    services.getSchedulesByDate(inputDay),
+    services.getWorkSchedules(),
+  ])
+
+  if (!schedules.success || !workHours.success) {
+    console.error("Erro ao validar a data do agendamento.")
+    renderFormInputError(field.parentNode, "Não foi possível validar o horário")
+    return false
+  }
+
+  let isValid = utils.isAvailable({ hour: inputHour, date: inputDay }, schedules.data)
+
+  isValid = isValid && utils.isWorkSchedule({ hour: inputHour }, workHours.data.hours)
+
+  if (!isValid) {
+    renderFormInputError(field.parentNode, "Agendamento indisponível")
+    return false
+  }
+
+  removeFormInputError(field.parentNode)
+  return true
 }
