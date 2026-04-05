@@ -1,11 +1,190 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Agendamento Petshop</title>
-</head>
-<body>
-  <h1>hello</h1>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agendamento Petshop</title>
+  </head>
+  <body>
+    <header class="header">
+      <h1 class="header__title header__title--fixed">
+        <img src="./assets/images/icons/icon-dog.svg" alt="Ícone de cachorro" />
+        <span>Mundo PET</span>
+      </h1>
+      <div class="container">
+        <div class="header__hero">
+          <h2 class="header__subtitle">Sua agenda</h2>
+          <p class="header__description">
+            Aqui você pode ver todos os clientes e serviços agendados para hoje.
+          </p>
+        </div>
+        <div class="date-picker">
+          <input type="date" id="date" />
+
+          <div class="date-display">
+            <img
+              class="icon-calendar"
+              src="./assets/images/icons/icon-calendar.svg"
+              alt="Ícone de calendário"
+            />
+            <span id="date-text" data-datepicker>Selecionar data</span>
+            <img
+              class="arrow"
+              src="./assets/images/icons/icon-arrow-down.svg"
+              alt="Ícone de seta para baixo"
+            />
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="container">
+        <section class="period period--morning">
+          <div class="period__wrapper-title">
+            <h3 class="period__title">
+              <img src="./assets/images/icons/icon-sun.svg" alt="Ícone de sol" /> <span>Manhã</span>
+            </h3>
+            <strong>09h-12h</strong>
+          </div>
+          <hr class="hr" />
+          <ul data-hour-gap="09h-12h" class="period__schedules">
+            <!-- <li class="period__schedule">
+            <span class="period__hour">09:00</span>
+            <span class="period__patient"><strong>Thor</strong> / Fernanda Costa</span>
+            <span class="period__service">Vacinação</span>
+            <a class="period__remove" href="javascript:void(0);"> Remover agendamento</a>
+          </li> -->
+          </ul>
+        </section>
+
+        <section class="period period--afternoon">
+          <div class="period__wrapper-title">
+            <h3 class="period__title">
+              <img src="./assets/images/icons/icon-cloud.svg" alt="Ícone de nuvem" />
+              <span>Tarde</span>
+            </h3>
+            <strong>13h-18h</strong>
+          </div>
+          <hr class="hr" />
+          <ul data-hour-gap="13h-18h" class="period__schedules">
+            <!-- <li class="period__schedule">
+            <span class="period__hour">13:00</span>
+            <span class="period__patient"><strong>Thor</strong> / Fernanda Costa</span>
+            <span class="period__service">Vacinação</span>
+            <a class="period__remove" href="javascript:void(0);"> Remover agendamento</a>
+          </li>
+          <li class="period__schedule">
+            <span class="period__hour">13:00</span>
+            <span class="period__patient"><strong>Thor</strong> / Fernanda Costa</span>
+            <span class="period__service">Vacinação</span>
+            <a class="period__remove" href="javascript:void(0);"> Remover agendamento</a>
+          </li>
+          <li class="period__schedule">
+            <span class="period__hour">13:00</span>
+            <span class="period__patient"><strong>Thor</strong> / Fernanda Costa</span>
+            <span class="period__service">Vacinação</span>
+            <a class="period__remove" href="javascript:void(0);"> Remover agendamento</a>
+          </li> -->
+          </ul>
+        </section>
+
+        <section class="period period--night">
+          <div class="period__wrapper-title">
+            <h3 class="period__title">
+              <img src="./assets/images/icons/icon-moon.svg" alt="Ícone de lua" />
+              <span>Noite</span>
+            </h3>
+            <strong>18h-21h</strong>
+          </div>
+          <hr class="hr" />
+          <ul data-hour-gap="18h-21h" class="period__schedules">
+            <!-- <li class="period__schedule">
+            <span class="period__hour">18:00</span>
+            <span class="period__patient"><strong>Thor</strong> / Fernanda Costa</span>
+            <span class="period__service">Vacinação</span>
+            <a class="period__remove" href="javascript:void(0);"> Remover agendamento</a>
+          </li> -->
+          </ul>
+        </section>
+      </div>
+
+      <section class="modal" style="visibility: hidden">
+        <button class="modal__button-close" type="button">
+          <img src="./assets/images/icons/icon-close.svg" alt="Ícone de fechar" />
+        </button>
+        <div class="container">
+          <h2 class="modal__subtitle">Agende um atendimento</h2>
+          <p class="modal__description">
+            Preencha os dados do cliente para realizar o agendamento.
+          </p>
+          <form class="modal__form">
+            <div class="w-full">
+              <label for="tutor">Nome do tutor</label>
+              <input placeholder="Helena Souza" type="text" id="tutor" name="tutor" required />
+              <img src="./assets/images/icons/icon-user.svg" alt="Ícone de usuário" />
+            </div>
+            <div class="w-full">
+              <label for="petName">Nome do pet</label>
+              <input placeholder="Cheddar" type="text" id="petName" name="petName" required />
+              <img src="./assets/images/icons/icon-paw.svg" alt="Ícone de pata" />
+            </div>
+            <div class="w-full">
+              <label for="phone">Telefone</label>
+              <input placeholder="(99) 99999-9999" type="tel" id="phone" name="phone" required />
+              <img src="./assets/images/icons/icon-phone.svg" alt="Ícone de telefone" />
+            </div>
+            <div class="w-full">
+              <label for="service">Descrição do serviço</label>
+              <textarea placeholder="Banho e Tosa" id="service" name="service" required></textarea>
+            </div>
+            <div class="w-half">
+              <div class="date-picker">
+                <input name="modalDate" type="date" id="modal-date" />
+                <div class="date-display">
+                  <img
+                    class="icon-calendar"
+                    src="./assets/images/icons/icon-calendar.svg"
+                    alt="Ícone de calendário"
+                  />
+                  <span id="modal-date-text" data-datepicker>Selecionar data</span>
+                  <img
+                    class="arrow"
+                    src="./assets/images/icons/icon-arrow-down.svg"
+                    alt="Ícone de seta para baixo"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="w-half">
+              <div class="time-picker">
+                <div class="time-display">
+                  <input name="modalTime" type="text" id="modal-time" />
+                  <img
+                    class="icon-clock"
+                    src="./assets/images/icons/icon-clock.svg"
+                    alt="Ícone de relógio"
+                  />
+                  <img
+                    class="arrow"
+                    src="./assets/images/icons/icon-arrow-down.svg"
+                    alt="Ícone de seta para baixo"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="w-full">
+              <button class="modal__button" type="submit">Agendar</button>
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <button class="footer__schedule"><span>Novo Agendamento</span></button>
+    </footer>
+
+    <div class="app-overlay" style="visibility: hidden"></div>
+  </body>
 </html>

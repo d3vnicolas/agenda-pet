@@ -1,7 +1,4 @@
-import '../styles/globals.css';
-
-const hello = () => 'world!';
-
-document.addEventListener('DOMContentLoaded', () => {
-  document.body.querySelector('h1').innerHTML += ` ${hello()}`;
-});
+import "../styles/globals.scss"
+import "../js/modules/schedules/load.js"
+import "../js/modules/dom/handleDom.js"
+import "../js/modules/form/handleInputs.js"
